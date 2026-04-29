@@ -1,5 +1,5 @@
-import { Component, signal, computed } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, signal, computed, PLATFORM_ID, inject } from '@angular/core';
+import { isPlatformBrowser, CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 
 interface Question {
@@ -127,9 +127,12 @@ export class SurveyComponent {
   result = signal<typeof MILIEU_MAP[string] | null>(null);
 
   progress = computed(() => Math.round((Object.keys(this.answers()).length / QUESTIONS.length) * 100));
+  private platformId = inject(PLATFORM_ID);
 
   constructor(private router: Router) {
-    if (!sessionStorage.getItem('verified')) this.router.navigate(['/']);
+    if (isPlatformBrowser(this.platformId) && !sessionStorage.getItem('verified')) {
+      this.router.navigate(['/']);
+    }
   }
 
   get q() { return this.questions[this.current()]; }

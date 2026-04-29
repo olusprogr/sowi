@@ -1,1 +1,49 @@
-<router-outlet></router-outlet>
+<div class="app-shell">
+
+  <!-- Cookie Banner -->
+  @if (showCookie()) {
+    <app-cookie-banner (accepted)="onCookieDone()" />
+  }
+
+  <!-- Global Navbar -->
+  <nav class="navbar">
+    <a routerLink="/" class="nav-brand">
+      <span class="ndot" style="background:#1a3a5c"></span>
+      <span class="ndot" style="background:#e8632a"></span>
+      <span class="ndot" style="background:#2d7a4f"></span>
+      <span class="nav-title">Sinus-Milieus</span>
+    </a>
+
+    <!-- Desktop links -->
+    <div class="nav-links">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Start</a>
+      <a routerLink="/info" routerLinkActive="active">Info</a>
+      <a routerLink="/umfrage" routerLinkActive="active">Umfrage</a>
+      <a routerLink="/impressum" routerLinkActive="active" class="nav-impressum">Impressum</a>
+    </div>
+
+    <!-- Hamburger -->
+    <button class="burger" (click)="toggleNav()" [attr.aria-expanded]="showNav()" aria-label="Navigation öffnen">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- Mobile drawer -->
+  @if (showNav()) {
+    <div class="mobile-drawer">
+      <a routerLink="/" (click)="toggleNav()">Start</a>
+      <a routerLink="/info" (click)="toggleNav()">Info</a>
+      <a routerLink="/umfrage" (click)="toggleNav()">Umfrage</a>
+      <a routerLink="/impressum" (click)="toggleNav()">Impressum</a>
+    </div>
+  }
+
+  <!-- Page content -->
+  <main class="main-content">
+    <router-outlet />
+  </main>
+
+  <!-- Footer -->
+  <app-footer />
+
+</div>

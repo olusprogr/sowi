@@ -1,16 +1,10 @@
 <div class="shell">
-  <!-- Header -->
-  <header class="topbar">
-    <div class="brand">
-      <span class="dot" style="background:#1a3a5c"></span>
-      <span class="dot" style="background:#e8632a"></span>
-      <span class="dot" style="background:#2d7a4f"></span>
-      <span class="brand-name">Sinus-Milieus</span>
-    </div>
+  <!-- Step counter bar -->
+  <div class="survey-topbar">
     @if (!done()) {
-      <span class="step-counter">{{ current() + 1 }} / {{ questions.length }}</span>
+      <span class="step-counter">Frage {{ current() + 1 }} von {{ questions.length }}</span>
     }
-  </header>
+  </div>
 
   <!-- Progress bar -->
   @if (!done()) {

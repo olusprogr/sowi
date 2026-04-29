@@ -5,18 +5,14 @@
   max-width:600px;margin:0 auto;
 }
 
-/* Topbar */
-.topbar{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:1rem 1.25rem;
+/* Survey top bar (step counter only – no brand, that's in the global navbar) */
+.survey-topbar{
+  display:flex;align-items:center;justify-content:flex-end;
+  padding:.6rem 1.25rem;
   background:#fff;
   border-bottom:1px solid var(--c-border);
-  position:sticky;top:0;z-index:10;
 }
-.brand{display:flex;align-items:center;gap:.35rem}
-.dot{width:10px;height:10px;border-radius:50%;display:inline-block}
-.brand-name{font-weight:700;font-size:.95rem;color:var(--c-primary);margin-left:.3rem}
-.step-counter{font-size:.85rem;color:var(--c-muted);font-weight:500}
+.step-counter{font-size:.82rem;color:var(--c-muted);font-weight:500}
 
 /* Progress */
 .progress-track{height:4px;background:#e9e4dd;width:100%}
@@ -87,6 +83,6 @@
 @media(min-width:600px){
   .shell{border-left:1px solid var(--c-border);border-right:1px solid var(--c-border)}
   .content{padding:2rem 2.5rem 3rem}
-  .topbar{padding:1rem 2.5rem}
+  .survey-topbar{padding:.6rem 2.5rem}
   .q-text{font-size:1.25rem}
 }

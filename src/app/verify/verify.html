@@ -1,43 +1,103 @@
 <main class="page">
+  <div class="bg-blob blob1"></div>
+  <div class="bg-blob blob2"></div>
+
   <div class="card">
     <div class="logo-row">
       <span class="logo-dot" style="background:#1a3a5c"></span>
       <span class="logo-dot" style="background:#e8632a"></span>
       <span class="logo-dot" style="background:#2d7a4f"></span>
     </div>
-    <h1>Sinus-Milieus Umfrage</h1>
-    <p class="sub">Sozialwissenschaften · Klasse 2025</p>
-    <p class="desc">
-      Diese Umfrage erforscht, welchem <strong>Sinus-Milieu</strong> du angehörst –
-      einer soziologischen Einteilung von Menschen nach Werten, Lebensstil und
-      sozialer Lage.
-    </p>
-    <form (ngSubmit)="submit()" class="form">
-      <label for="email">Schul-E-Mail-Adresse</label>
-      <div class="input-wrap" [class.has-error]="error()">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
-        <input
-          id="email"
-          type="email"
-          placeholder="vorname.nachname@stein.ms.de"
-          autocomplete="email"
-          inputmode="email"
-          [value]="email()"
-          (input)="onInput($any($event.target).value)"
-          required
-        />
+
+    <h1>Sinus-Milieus<br><span class="h1-sub">Umfrage</span></h1>
+    <p class="sub">Sozialwissenschaften · Stein-Gymnasium · 2025/26</p>
+
+    <div class="divider"></div>
+
+    <!-- Datenschutz-Info (immer sichtbar) -->
+    <div class="privacy-notice">
+      <div class="privacy-icon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
       </div>
-      @if (error()) {
-        <p class="err-msg" role="alert">{{ error() }}</p>
-      }
-      <button type="submit" [disabled]="loading() || !email()">
-        @if (loading()) {
-          <span class="spinner"></span> Weiterleiten…
-        } @else {
-          Umfrage starten &rarr;
+      <div>
+        <p class="privacy-title">Datenschutz &amp; Verwendungszweck</p>
+        <p>Deine E-Mail-Adresse wird <strong>ausschließlich</strong> für zwei Zwecke genutzt:</p>
+        <ul>
+          <li>Auswertungsübersicht &amp; Datenabgleich (anonymisiert)</li>
+          <li>Teilnahme am <strong>Gewinnspiel</strong> 🎁</li>
+        </ul>
+        <p>Daten werden nicht weitergegeben und nach der Auswertung gelöscht.</p>
+      </div>
+    </div>
+
+    <!-- Auswahl: mit oder ohne Email -->
+    @if (mode() === 'choice') {
+      <div class="choice-area">
+        <p class="choice-label">Wie möchtest du teilnehmen?</p>
+
+        <button class="choice-btn primary" (click)="chooseEmail()">
+          <div class="choice-btn-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+          </div>
+          <div class="choice-btn-text">
+            <span class="choice-btn-title">Mit Schul-E-Mail</span>
+            <span class="choice-btn-sub">Gewinnspiel-Teilnahme + Auswertung</span>
+          </div>
+          <span class="badge-gewinn">🎁 Gewinnspiel</span>
+        </button>
+
+        <button class="choice-btn secondary" (click)="chooseAnon()">
+          <div class="choice-btn-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/><line x1="17" y1="11" x2="22" y2="11"/></svg>
+          </div>
+          <div class="choice-btn-text">
+            <span class="choice-btn-title">Anonym teilnehmen</span>
+            <span class="choice-btn-sub">Kein Gewinnspiel, keine Datenspeicherung</span>
+          </div>
+        </button>
+      </div>
+    }
+
+    <!-- Email-Formular -->
+    @if (mode() === 'email') {
+      <form (ngSubmit)="submit()" class="form" novalidate>
+        <label for="email">Schul-E-Mail-Adresse</label>
+        <div class="input-wrap" [class.has-error]="error()">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+          <input
+            id="email"
+            type="email"
+            placeholder="vorname.nachname@stein.ms.de"
+            autocomplete="email"
+            inputmode="email"
+            [value]="email()"
+            (input)="onInput($any($event.target).value)"
+            required
+            autofocus
+          />
+        </div>
+        @if (error()) {
+          <p class="err-msg" role="alert">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            {{ error() }}
+          </p>
         }
-      </button>
-    </form>
-    <p class="hint">Nur Adressen auf <code>@stein.ms.de</code> werden akzeptiert.</p>
+        <button type="submit" [disabled]="loading() || !email()">
+          @if (loading()) {
+            <span class="spinner"></span> Wird geprüft…
+          } @else {
+            Weiter &amp; am Gewinnspiel teilnehmen
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          }
+        </button>
+        <button type="button" class="back-link-btn" (click)="back()">
+          &#8592; Zurück zur Auswahl
+        </button>
+      </form>
+      <p class="hint">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        Nur Adressen auf <code>&#64;stein.ms.de</code> werden akzeptiert
+      </p>
+    }
   </div>
 </main>
