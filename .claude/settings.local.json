@@ -2,7 +2,12 @@
   "permissions": {
     "allow": [
       "Bash(defuddle parse *)",
-      "Bash(npx ng *)"
+      "Bash(npx ng *)",
+      "Bash(git checkout *)",
+      "Bash(git rm *)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)"
     ]
   }
 }
