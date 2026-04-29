@@ -1,0 +1,60 @@
+.page{
+  min-height:100dvh;
+  display:grid;
+  place-items:center;
+  padding:1.5rem;
+  background:linear-gradient(135deg,#eef2f7 0%,#f8f5f0 60%,#fdf0e8 100%);
+}
+.card{
+  background:#fff;
+  border-radius:20px;
+  padding:2.5rem 2rem;
+  max-width:440px;
+  width:100%;
+  box-shadow:0 4px 32px rgba(26,58,92,.12);
+}
+.logo-row{display:flex;gap:.5rem;margin-bottom:1.5rem}
+.logo-dot{width:14px;height:14px;border-radius:50%;display:inline-block}
+h1{font-size:1.6rem;font-weight:700;color:var(--c-primary);line-height:1.2;margin-bottom:.25rem}
+.sub{font-size:.85rem;color:var(--c-muted);margin-bottom:1.25rem;letter-spacing:.02em}
+.desc{font-size:.93rem;color:#444;margin-bottom:1.75rem;line-height:1.6;padding:.75rem 1rem;background:#f4f7fb;border-left:3px solid var(--c-primary);border-radius:0 8px 8px 0}
+.form{display:flex;flex-direction:column;gap:.75rem}
+label{font-size:.85rem;font-weight:600;color:var(--c-primary)}
+.input-wrap{
+  display:flex;align-items:center;gap:.6rem;
+  border:1.5px solid var(--c-border);border-radius:10px;
+  padding:.7rem .9rem;background:#fff;
+  transition:border-color .2s;
+}
+.input-wrap:focus-within{border-color:var(--c-primary)}
+.input-wrap.has-error{border-color:#c0392b}
+.input-wrap svg{color:var(--c-muted);flex-shrink:0}
+.input-wrap input{
+  border:none;outline:none;flex:1;
+  font-size:1rem;color:var(--c-text);background:transparent;
+}
+.input-wrap input::placeholder{color:#bbb}
+.err-msg{font-size:.82rem;color:#c0392b;display:flex;align-items:center;gap:.3rem}
+button{
+  margin-top:.5rem;
+  background:var(--c-primary);color:#fff;
+  border:none;border-radius:10px;
+  padding:.9rem 1.5rem;font-size:1rem;font-weight:600;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;gap:.5rem;
+  transition:background .2s,transform .1s;
+}
+button:hover:not(:disabled){background:#15304d}
+button:active:not(:disabled){transform:scale(.98)}
+button:disabled{opacity:.6;cursor:not-allowed}
+.spinner{
+  width:16px;height:16px;border:2px solid rgba(255,255,255,.4);
+  border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+.hint{font-size:.78rem;color:var(--c-muted);margin-top:1.25rem;text-align:center}
+.hint code{background:#f0f0f0;padding:.1em .35em;border-radius:4px;font-size:.85em}
+
+@media(max-width:400px){
+  .card{padding:2rem 1.25rem}
+  h1{font-size:1.35rem}
+}

@@ -1,0 +1,75 @@
+<div class="shell">
+  <!-- Header -->
+  <header class="topbar">
+    <div class="brand">
+      <span class="dot" style="background:#1a3a5c"></span>
+      <span class="dot" style="background:#e8632a"></span>
+      <span class="dot" style="background:#2d7a4f"></span>
+      <span class="brand-name">Sinus-Milieus</span>
+    </div>
+    @if (!done()) {
+      <span class="step-counter">{{ current() + 1 }} / {{ questions.length }}</span>
+    }
+  </header>
+
+  <!-- Progress bar -->
+  @if (!done()) {
+    <div class="progress-track" role="progressbar" [attr.aria-valuenow]="progress()" aria-valuemin="0" aria-valuemax="100">
+      <div class="progress-fill" [style.width.%]="progress()"></div>
+    </div>
+  }
+
+  <!-- Survey -->
+  @if (!done()) {
+    <main class="content">
+      <p class="q-label">Frage {{ current() + 1 }}</p>
+      <h2 class="q-text">{{ q.text }}</h2>
+      <ul class="options" role="list">
+        @for (opt of q.options; track opt.value) {
+          <li>
+            <button
+              class="option-btn"
+              [class.selected]="isSelected(opt.value)"
+              (click)="select(opt.value)"
+              [attr.aria-pressed]="isSelected(opt.value)"
+            >
+              <span class="opt-check">
+                @if (isSelected(opt.value)) {
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><polyline points="2,8 6,12 14,4" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                }
+              </span>
+              {{ opt.label }}
+            </button>
+          </li>
+        }
+      </ul>
+      @if (current() > 0) {
+        <button class="back-btn" (click)="back()">&#8592; Zurück</button>
+      }
+    </main>
+  }
+
+  <!-- Result -->
+  @if (done() && result()) {
+    <main class="content result-page">
+      <div class="result-badge" [style.background]="result()!.farbe">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+      </div>
+      <p class="result-label">Dein Sinus-Milieu</p>
+      <h2 class="result-title" [style.color]="result()!.farbe">{{ result()!.name }}</h2>
+      <div class="result-anteil">
+        <span class="anteil-pill" [style.background]="result()!.farbe + '22'" [style.color]="result()!.farbe">
+          Bevölkerungsanteil: <strong>{{ result()!.anteil }}</strong>
+        </span>
+      </div>
+      <p class="result-desc">{{ result()!.desc }}</p>
+
+      <div class="info-box">
+        <h3>Was sind Sinus-Milieus?</h3>
+        <p>Das Sinus-Institut teilt die Gesellschaft nach <em>sozialer Lage</em> und <em>Grundorientierung</em> in 10 Milieus ein. Sie helfen, Lebensstile, Werte und Konsummuster besser zu verstehen – wichtig für Soziologie, Marketing und Politik.</p>
+      </div>
+
+      <button class="restart-btn" (click)="restart()">Nochmal starten</button>
+    </main>
+  }
+</div>

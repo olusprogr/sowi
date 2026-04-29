@@ -1,0 +1,43 @@
+<main class="page">
+  <div class="card">
+    <div class="logo-row">
+      <span class="logo-dot" style="background:#1a3a5c"></span>
+      <span class="logo-dot" style="background:#e8632a"></span>
+      <span class="logo-dot" style="background:#2d7a4f"></span>
+    </div>
+    <h1>Sinus-Milieus Umfrage</h1>
+    <p class="sub">Sozialwissenschaften · Klasse 2025</p>
+    <p class="desc">
+      Diese Umfrage erforscht, welchem <strong>Sinus-Milieu</strong> du angehörst –
+      einer soziologischen Einteilung von Menschen nach Werten, Lebensstil und
+      sozialer Lage.
+    </p>
+    <form (ngSubmit)="submit()" class="form">
+      <label for="email">Schul-E-Mail-Adresse</label>
+      <div class="input-wrap" [class.has-error]="error()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+        <input
+          id="email"
+          type="email"
+          placeholder="vorname.nachname@stein.ms.de"
+          autocomplete="email"
+          inputmode="email"
+          [value]="email()"
+          (input)="onInput($any($event.target).value)"
+          required
+        />
+      </div>
+      @if (error()) {
+        <p class="err-msg" role="alert">{{ error() }}</p>
+      }
+      <button type="submit" [disabled]="loading() || !email()">
+        @if (loading()) {
+          <span class="spinner"></span> Weiterleiten…
+        } @else {
+          Umfrage starten &rarr;
+        }
+      </button>
+    </form>
+    <p class="hint">Nur Adressen auf <code>@stein.ms.de</code> werden akzeptiert.</p>
+  </div>
+</main>

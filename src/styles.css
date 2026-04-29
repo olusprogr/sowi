@@ -1,1 +1,23 @@
-/* You can add global styles to this file, and also import other style files */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --c-bg:#f8f5f0;
+  --c-surface:#fff;
+  --c-border:#e2ddd6;
+  --c-primary:#1a3a5c;
+  --c-accent:#e8632a;
+  --c-text:#1e1e1e;
+  --c-muted:#6b6b6b;
+  --c-success:#2d7a4f;
+  --r:12px;
+  --shadow:0 2px 16px rgba(0,0,0,.08);
+}
+html{font-size:16px;scroll-behavior:smooth}
+body{
+  font-family:'Segoe UI',system-ui,sans-serif;
+  background:var(--c-bg);
+  color:var(--c-text);
+  min-height:100dvh;
+  line-height:1.5;
+}
+input,button,select,textarea{font-family:inherit;font-size:1rem}
+img{max-width:100%;display:block}
