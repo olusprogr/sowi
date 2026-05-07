@@ -1,0 +1,8 @@
+{
+  "routes": {
+    "/": {},
+    "/impressum": {},
+    "/info": {},
+    "/umfrage": {}
+  }
+}

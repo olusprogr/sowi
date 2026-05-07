@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git rm *)",
+      "Bash(cp -r dist/sowi/browser/* .)",
+      "Bash(git add *)",
+      "Bash(git commit *)"
+    ]
+  }
+}
