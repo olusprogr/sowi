@@ -8,6 +8,19 @@
   <meta name="theme-color" content="#1a3a5c">
   <meta name="description" content="Finde heraus, welchem Sinus-Milieu du angehörst – eine Umfrage für den Sozialwissenschafts-Unterricht.">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <script>
+    // GitHub Pages SPA redirect: 404.html stashes the original path in
+    // sessionStorage; restore it here before Angular bootstraps.
+    (function () {
+      var redirect = sessionStorage.getItem('gh-pages-redirect');
+      if (redirect) {
+        sessionStorage.removeItem('gh-pages-redirect');
+        if (redirect !== location.pathname + location.search + location.hash) {
+          history.replaceState(null, '', redirect);
+        }
+      }
+    })();
+  </script>
 </head>
 <body>
   <app-root></app-root>

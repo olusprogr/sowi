@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <title>Sinus-Milieus Umfrage</title>
+  <script>
+    // GitHub Pages serves this file for any unknown path under /sowi/.
+    // Stash the requested path so index.html can restore it after bootstrap,
+    // then redirect to the SPA root.
+    (function () {
+      var repo = '/sowi/';
+      var path = location.pathname + location.search + location.hash;
+      sessionStorage.setItem('gh-pages-redirect', path);
+      location.replace(repo);
+    })();
+  </script>
+</head>
+<body></body>
+</html>

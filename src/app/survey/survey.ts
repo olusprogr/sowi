@@ -9,107 +9,70 @@ interface Question {
 }
 
 const QUESTIONS: Question[] = [
-  {
-    id: 'bildung',
-    text: 'Welchen höchsten Schulabschluss strebst du an oder hast du bereits?',
-    options: [
-      { label: 'Hauptschulabschluss', value: 'haupt' },
-      { label: 'Realschulabschluss', value: 'real' },
-      { label: 'Abitur / Fachabitur', value: 'abi' },
-      { label: 'Hochschulabschluss (Bachelor, Master, …)', value: 'hochschule' },
-    ]
-  },
-  {
-    id: 'werte',
-    text: 'Welcher Aussage stimmst du am stärksten zu?',
-    options: [
-      { label: 'Tradition und Sicherheit sind mir das Wichtigste.', value: 'tradition' },
-      { label: 'Ich strebe nach Status, Erfolg und Anerkennung.', value: 'status' },
-      { label: 'Selbstverwirklichung und persönliche Freiheit sind mein Ziel.', value: 'selbst' },
-      { label: 'Gemeinschaft, Solidarität und Gerechtigkeit leiten mich.', value: 'community' },
-      { label: 'Spaß, Erlebnisse und das Hier und Jetzt zählen.', value: 'hedonismus' },
-    ]
-  },
-  {
-    id: 'freizeit',
-    text: 'Wie verbringst du deine Freizeit am liebsten?',
-    options: [
-      { label: 'Zuhause – Familie, Garten, Fernsehen', value: 'zuhause' },
-      { label: 'Sport, Fitness, Netzwerken', value: 'aktiv' },
-      { label: 'Kultur, Kunst, Reisen', value: 'kultur' },
-      { label: 'Ehrenamt, politisches Engagement', value: 'sozial' },
-      { label: 'Ausgehen, Feiern, Gaming, Soziale Medien', value: 'digital' },
-    ]
-  },
-  {
-    id: 'konsum',
-    text: 'Wie triffst du Kaufentscheidungen?',
-    options: [
-      { label: 'Ich achte vor allem auf den Preis.', value: 'preis' },
-      { label: 'Marken und Qualität sind mir wichtig.', value: 'marke' },
-      { label: 'Ich kaufe nachhaltig und ethisch.', value: 'nachhaltig' },
-      { label: 'Ich kaufe was trendy und angesagt ist.', value: 'trend' },
-      { label: 'Ich kaufe spontan, was mir gefällt.', value: 'spontan' },
-    ]
-  },
-  {
-    id: 'politik',
-    text: 'Wie stehst du zu gesellschaftlichen Veränderungen?',
-    options: [
-      { label: 'Bewährtes bewahren – Veränderung macht mir Sorgen.', value: 'konservativ' },
-      { label: 'Reformen ja, aber schrittweise und pragmatisch.', value: 'moderat' },
-      { label: 'Progressiver Wandel – Gesellschaft muss sich öffnen.', value: 'progressiv' },
-      { label: 'Radikaler Wandel ist nötig – das System muss sich ändern.', value: 'radikal' },
-      { label: 'Ich interessiere mich kaum für Politik.', value: 'apolitisch' },
-    ]
-  },
-  {
-    id: 'technik',
-    text: 'Wie gehst du mit neuen Technologien um?',
-    options: [
-      { label: 'Ich nutze sie nur wenn nötig und bleibe lieber beim Alten.', value: 'skeptisch' },
-      { label: 'Ich nutze sie gezielt für Beruf und Effizienz.', value: 'pragmatisch' },
-      { label: 'Ich experimentiere gerne und probiere Neues aus.', value: 'enthusiast' },
-      { label: 'Ich hinterfrage kritisch den gesellschaftlichen Einfluss.', value: 'kritisch' },
-    ]
-  },
-  {
-    id: 'wohnen',
-    text: 'Wo und wie möchtest du am liebsten wohnen?',
-    options: [
-      { label: 'Ländlich – Natur, Ruhe, eigenes Haus', value: 'land' },
-      { label: 'Vorstadt – ruhig, aber mit guter Anbindung', value: 'vorstadt' },
-      { label: 'Großstadt – zentral, urban, belebt', value: 'stadt' },
-      { label: 'Flexibel – Hauptsache unkompliziert und günstig', value: 'flexibel' },
-    ]
-  },
+  { id: 'q1',  text: 'Familie, Heimat und Traditionen sind mir sehr wichtig.',                      options: [{ label: 'Ja', value: 'ja' }, { label: 'Nein', value: 'nein' }] },
+  { id: 'q2',  text: 'Ich passe mich gerne an Erwartungen an, um erfolgreich zu sein.',             options: [{ label: 'Ja', value: 'ja' }, { label: 'Nein', value: 'nein' }] },
+  { id: 'q3',  text: 'Ich habe oft das Gefühl, dass ich es im Leben schwerer habe als andere.',     options: [{ label: 'Ja', value: 'ja' }, { label: 'Nein', value: 'nein' }] },
+  { id: 'q4',  text: 'Marken, Trends und coole Produkte sind mir wichtig.',                         options: [{ label: 'Ja', value: 'ja' }, { label: 'Nein', value: 'nein' }] },
+  { id: 'q5',  text: 'Ich lebe lieber im Hier und Jetzt, als langfristig zu planen.',               options: [{ label: 'Ja', value: 'ja' }, { label: 'Nein', value: 'nein' }] },
+  { id: 'q6',  text: 'Umwelt- und Klimaschutz sind für mich zentrale Themen im Alltag.',            options: [{ label: 'Ja', value: 'ja' }, { label: 'Nein', value: 'nein' }] },
+  { id: 'q7',  text: 'Ich möchte neue Wege gehen und mich von der Masse abheben.',                  options: [{ label: 'Ja', value: 'ja' }, { label: 'Nein', value: 'nein' }] },
+  { id: 'q8',  text: 'Bildung, kritisches Denken und gesellschaftliche Verantwortung sind mir wichtig.', options: [{ label: 'Ja', value: 'ja' }, { label: 'Nein', value: 'nein' }] },
+  { id: 'q9',  text: 'Erfolg, Status und Leistung treiben mich im Leben an.',                       options: [{ label: 'Ja', value: 'ja' }, { label: 'Nein', value: 'nein' }] },
+  { id: 'q10', text: 'Ich schätze ein ruhiges, geregeltes Leben mit klaren Strukturen.',            options: [{ label: 'Ja', value: 'ja' }, { label: 'Nein', value: 'nein' }] },
 ];
 
 const MILIEU_MAP: Record<string, { name: string; farbe: string; desc: string; anteil: string }> = {
-  konservativ: { name: 'Konservativ-Etabliertes Milieu', farbe: '#1a3a5c', desc: 'Klassische Elite mit hohem Bildungsniveau. Geprägt von Traditionsbewusstsein, Pflichtgefühl und kulturellem Anspruch.', anteil: '10 %' },
-  liberal:     { name: 'Liberal-Intellektuelles Milieu', farbe: '#2d7a4f', desc: 'Aufgeklärte Bildungselite mit postmateriellen Wurzeln. Politisch-kulturell engagiert, offen für Vielfalt.', anteil: '7 %' },
-  performer:   { name: 'Milieu der Performer', farbe: '#e8632a', desc: 'Leistungsorientierte Globalisten. Hohe Ansprüche an sich selbst, technikaffin, international vernetzt.', anteil: '8 %' },
-  expeditiv:   { name: 'Expeditives Milieu', farbe: '#7b3fa0', desc: 'Kreative Avantgarde. Digitale Natives, die Unabhängigkeit, Selbstbestimmung und Ästhetik leben.', anteil: '9 %' },
-  sozial:      { name: 'Sozial-Ökologisches Milieu', farbe: '#3a8fbf', desc: 'Gesellschaftskritisch und nachhaltigkeitsorientiert. Starkes Gemeinschaftsgefühl und ökologisches Gewissen.', anteil: '7 %' },
-  adaptiv:     { name: 'Adaptiv-Pragmatisches Milieu', farbe: '#c0873d', desc: 'Junge flexible Mitte. Pragmatisch, anpassungsfähig, balancieren zwischen Leistung und Lebensqualität.', anteil: '12 %' },
-  buergerlich: { name: 'Bürgerliche Mitte', farbe: '#5a8fa0', desc: 'Der gesellschaftliche Mainstream. Sicherheitsorientiert, harmonieliebend, konventionell.', anteil: '13 %' },
   traditionell:{ name: 'Traditionelles Milieu', farbe: '#7a7060', desc: 'Die ältere Generation mit kleinbürgerlichen Werten. Pflichtbewusstsein, Sparsamkeit, Bodenständigkeit.', anteil: '13 %' },
+  adaptiv:     { name: 'Adaptiv-Pragmatisches Milieu', farbe: '#c0873d', desc: 'Junge flexible Mitte. Pragmatisch, anpassungsfähig, balancieren zwischen Leistung und Lebensqualität.', anteil: '12 %' },
   prekär:      { name: 'Prekäres Milieu', farbe: '#8b5e5e', desc: 'Gesellschaftlich Abgehängte. Suche nach Sicherheit, Ausgrenzungserfahrungen, soziale Benachteiligung.', anteil: '9 %' },
-  hedonistisch:{ name: 'Hedonistisches Milieu', farbe: '#c04a7a', desc: 'Spaß- und erlebnisorientierte Unterschicht und untere Mittelschicht. Leben im Moment, Ablehnung von Normen.', anteil: '15 %' },
+  hedonistisch:{ name: 'Konsum-Hedonistisches Milieu', farbe: '#c04a7a', desc: 'Spaß- und erlebnisorientierte Unterschicht und untere Mittelschicht. Leben im Moment, Ablehnung von Normen.', anteil: '15 %' },
+  experimentalist:{ name: 'Experimentalistisches Milieu', farbe: '#d97706', desc: 'Unkonventionelle Kreative. Leben spontan im Hier und Jetzt, lieben Vielfalt und Selbstinszenierung.', anteil: '8 %' },
+  sozial:      { name: 'Sozial-Ökologisches Milieu', farbe: '#3a8fbf', desc: 'Gesellschaftskritisch und nachhaltigkeitsorientiert. Starkes Gemeinschaftsgefühl und ökologisches Gewissen.', anteil: '7 %' },
+  expeditiv:   { name: 'Expeditives Milieu', farbe: '#7b3fa0', desc: 'Kreative Avantgarde. Digitale Natives, die Unabhängigkeit, Selbstbestimmung und Ästhetik leben.', anteil: '9 %' },
+  liberal:     { name: 'Liberal-Intellektuelles Milieu', farbe: '#2d7a4f', desc: 'Aufgeklärte Bildungselite mit postmateriellen Wurzeln. Politisch-kulturell engagiert, offen für Vielfalt.', anteil: '7 %' },
+  performer_konservativ: { name: 'Performer / Konservativ-Etablierte', farbe: '#1a3a5c', desc: 'Leistungs- und statusorientierte Elite. Hohe Ansprüche, Erfolgsstreben, kulturelles Selbstbewusstsein.', anteil: '18 %' },
+  buergerlich_traditionell: { name: 'Bürgerliche Mitte / Traditionelles Milieu', farbe: '#5a8fa0', desc: 'Sicherheitsorientiert und harmonieliebend. Klare Strukturen, geregeltes Leben, konventionelle Werte.', anteil: '26 %' },
+};
+
+const MILIEU_FOR_QUESTION: Record<string, string> = {
+  q1: 'traditionell',
+  q2: 'adaptiv',
+  q3: 'prekär',
+  q4: 'hedonistisch',
+  q5: 'experimentalist',
+  q6: 'sozial',
+  q7: 'expeditiv',
+  q8: 'liberal',
+  q9: 'performer_konservativ',
+  q10: 'buergerlich_traditionell',
 };
 
 function classifyMilieu(answers: Record<string, string>): string {
-  const s = (k: string, v: string) => answers[k] === v;
-  if (s('bildung','hochschule') && (s('werte','status') || s('freizeit','aktiv')) && s('technik','enthusiast')) return 'performer';
-  if (s('bildung','hochschule') && s('werte','community') && s('politik','progressiv')) return 'liberal';
-  if (s('bildung','hochschule') && s('werte','selbst') && s('technik','enthusiast') && s('freizeit','digital')) return 'expeditiv';
-  if (s('werte','community') && s('konsum','nachhaltig') && s('politik','progressiv')) return 'sozial';
-  if (s('werte','tradition') && (s('bildung','hochschule') || s('bildung','abi')) && s('konsum','marke')) return 'konservativ';
-  if (s('werte','tradition') && (s('bildung','haupt') || s('bildung','real'))) return 'traditionell';
-  if (s('werte','hedonismus') && s('freizeit','digital') && s('politik','apolitisch')) return 'hedonistisch';
-  if (s('politik','apolitisch') && s('konsum','preis') && s('wohnen','flexibel')) return 'prekär';
-  if ((s('bildung','abi') || s('bildung','real')) && s('werte','status') && s('technik','pragmatisch')) return 'adaptiv';
-  return 'buergerlich';
+  const counts: Record<string, number> = {};
+  const yesQuestions: string[] = [];
+  for (const [qid, milieu] of Object.entries(MILIEU_FOR_QUESTION)) {
+    if (answers[qid] === 'ja') {
+      counts[milieu] = (counts[milieu] ?? 0) + 1;
+      yesQuestions.push(qid);
+    }
+  }
+
+  if (yesQuestions.length === 0) return 'buergerlich_traditionell';
+
+  const max = Math.max(...Object.values(counts));
+  const winners = Object.entries(counts).filter(([, n]) => n === max).map(([m]) => m);
+
+  if (winners.length === 1) return winners[0];
+
+  const tiebreakOrder = ['q1', 'q6', 'q7'];
+  for (const qid of tiebreakOrder) {
+    if (answers[qid] === 'ja') {
+      const milieu = MILIEU_FOR_QUESTION[qid];
+      if (winners.includes(milieu)) return milieu;
+    }
+  }
+
+  return winners[0];
 }
 
 @Component({

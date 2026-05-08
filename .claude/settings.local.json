@@ -11,7 +11,14 @@
       "Bash(git stash *)",
       "Bash(git -C /c/Users/olusp/OneDrive/Desktop/sowi branch --show-current)",
       "Bash(npm start *)",
-      "Bash(git remote *)"
+      "Bash(git remote *)",
+      "Bash(curl -sS https://olusprogr.github.io/sowi/)",
+      "Bash(curl -sSL https://olusprogr.github.io/sowi/info/)",
+      "Bash(curl -sSL https://olusprogr.github.io/sowi/umfrage/)",
+      "Bash(curl -sSL https://olusprogr.github.io/sowi/impressum/)",
+      "WebSearch",
+      "WebFetch(domain:www.freiherr-vom-stein-gymnasium-muenster.de)",
+      "Bash(git worktree *)"
     ]
   }
 }

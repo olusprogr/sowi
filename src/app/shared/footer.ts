@@ -19,7 +19,7 @@ import { RouterLink } from '@angular/router';
           <a routerLink="/info">Info</a>
           <a routerLink="/impressum">Impressum &amp; Datenschutz</a>
         </nav>
-        <p class="footer-copy">© 2026 Schulprojekt Sozialwissenschaften · Stein-Gymnasium Schwalmtal</p>
+        <p class="footer-copy">© 2026 Schulprojekt Sozialwissenschaften · Freiherr-vom-Stein-Gymnasium Münster</p>
       </div>
     </footer>
   `,
