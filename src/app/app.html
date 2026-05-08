@@ -20,6 +20,12 @@
       <a routerLink="/info" routerLinkActive="active">Info</a>
       <a routerLink="/umfrage" routerLinkActive="active">Umfrage</a>
       <a routerLink="/impressum" routerLinkActive="active" class="nav-impressum">Impressum</a>
+      @if (auth.isLoggedIn()) {
+        <a routerLink="/stats" routerLinkActive="active">Stats</a>
+        <button class="nav-logout" (click)="logout()">Logout</button>
+      } @else {
+        <a routerLink="/admin/login" routerLinkActive="active">Login</a>
+      }
     </div>
 
     <!-- Hamburger -->
@@ -35,6 +41,12 @@
       <a routerLink="/info" (click)="toggleNav()">Info</a>
       <a routerLink="/umfrage" (click)="toggleNav()">Umfrage</a>
       <a routerLink="/impressum" (click)="toggleNav()">Impressum</a>
+      @if (auth.isLoggedIn()) {
+        <a routerLink="/stats" (click)="toggleNav()">Stats</a>
+        <button class="nav-logout" (click)="logout(); toggleNav()">Logout</button>
+      } @else {
+        <a routerLink="/admin/login" (click)="toggleNav()">Login</a>
+      }
     </div>
   }
 

@@ -4,6 +4,7 @@ import { isPlatformBrowser, CommonModule } from '@angular/common';
 import { filter } from 'rxjs/operators';
 import { CookieBannerComponent } from './cookie/cookie-banner';
 import { FooterComponent } from './shared/footer';
+import { AuthService } from './shared/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -16,8 +17,14 @@ export class App implements OnInit {
   showCookie = signal(false);
   showNav = signal(false);
   private platformId = inject(PLATFORM_ID);
+  auth = inject(AuthService);
 
   constructor(private router: Router) {}
+
+  logout() {
+    this.auth.logout();
+    this.router.navigate(['/']);
+  }
 
   ngOnInit() {
     if (isPlatformBrowser(this.platformId)) {

@@ -26,6 +26,23 @@
 .nav-links .nav-impressum{font-size:.8rem;color:#aaa}
 .nav-links .nav-impressum:hover{color:var(--c-muted);background:#f4f4f4}
 
+/* Logout button (Navbar) – styled like nav links */
+.nav-links .nav-logout{
+  background:none;border:none;cursor:pointer;font:inherit;
+  color:var(--c-muted);font-size:.875rem;font-weight:500;
+  padding:.45rem .75rem;border-radius:8px;
+  transition:color .15s,background .15s;
+}
+.nav-links .nav-logout:hover{color:var(--c-primary);background:#f4f7fb}
+
+.mobile-drawer .nav-logout{
+  background:none;border:none;cursor:pointer;font:inherit;text-align:left;
+  color:var(--c-text);font-size:1rem;font-weight:500;
+  padding:.8rem .75rem;border-radius:10px;
+  transition:background .15s;
+}
+.mobile-drawer .nav-logout:hover{background:#f4f7fb}
+
 /* Burger */
 .burger{
   display:none;flex-direction:column;justify-content:center;gap:5px;

@@ -93,6 +93,7 @@ export class SurveyComponent {
   progress = computed(() => Math.round((Object.keys(this.answers()).length / QUESTIONS.length) * 100));
   private platformId = inject(PLATFORM_ID);
   private stats = inject(StatsService);
+  private submitted = false;
 
   constructor(private router: Router) {
     if (isPlatformBrowser(this.platformId) && !sessionStorage.getItem('verified')) {
@@ -108,6 +109,8 @@ export class SurveyComponent {
       if (this.current() < QUESTIONS.length - 1) {
         this.current.update(n => n + 1);
       } else {
+        if (this.submitted) return;
+        this.submitted = true;
         const key = classifyMilieu(this.answers());
         const milieu = MILIEU_MAP[key];
         this.result.set(milieu);
@@ -135,5 +138,6 @@ export class SurveyComponent {
     this.current.set(0);
     this.done.set(false);
     this.result.set(null);
+    this.submitted = false;
   }
 }

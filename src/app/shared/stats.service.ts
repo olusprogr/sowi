@@ -11,6 +11,10 @@ export interface SurveyStatsPayload {
   createdAt: string;
 }
 
+export interface SurveyStatsRecord extends SurveyStatsPayload {
+  _id: string;
+}
+
 @Injectable({ providedIn: 'root' })
 export class StatsService {
   private http = inject(HttpClient);
@@ -18,5 +22,9 @@ export class StatsService {
 
   submitSurvey(payload: SurveyStatsPayload): Observable<{ _id: string }> {
     return this.http.post<{ _id: string }>(`${this.base}/stats`, payload);
+  }
+
+  listAll(): Observable<SurveyStatsRecord[]> {
+    return this.http.get<SurveyStatsRecord[]>(`${this.base}/stats`);
   }
 }
