@@ -1,6 +1,7 @@
 import { Component, signal, computed, PLATFORM_ID, inject } from '@angular/core';
 import { isPlatformBrowser, CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { StatsService } from '../shared/stats.service';
 
 interface Question {
   id: string;
@@ -91,6 +92,7 @@ export class SurveyComponent {
 
   progress = computed(() => Math.round((Object.keys(this.answers()).length / QUESTIONS.length) * 100));
   private platformId = inject(PLATFORM_ID);
+  private stats = inject(StatsService);
 
   constructor(private router: Router) {
     if (isPlatformBrowser(this.platformId) && !sessionStorage.getItem('verified')) {
@@ -107,8 +109,19 @@ export class SurveyComponent {
         this.current.update(n => n + 1);
       } else {
         const key = classifyMilieu(this.answers());
-        this.result.set(MILIEU_MAP[key]);
+        const milieu = MILIEU_MAP[key];
+        this.result.set(milieu);
         this.done.set(true);
+        if (isPlatformBrowser(this.platformId)) {
+          this.stats.submitSurvey({
+            milieuKey: key,
+            milieuName: milieu.name,
+            answers: this.answers(),
+            createdAt: new Date().toISOString(),
+          }).subscribe({
+            error: (err) => console.error('Failed to submit survey result', err),
+          });
+        }
       }
     }, 300);
   }
