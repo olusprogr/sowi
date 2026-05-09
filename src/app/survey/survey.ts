@@ -116,11 +116,14 @@ export class SurveyComponent {
         this.result.set(milieu);
         this.done.set(true);
         if (isPlatformBrowser(this.platformId)) {
+          const verified = sessionStorage.getItem('verified');
+          const email = verified && verified !== 'anonym' ? verified : null;
           this.stats.submitSurvey({
             milieuKey: key,
             milieuName: milieu.name,
             answers: this.answers(),
             createdAt: new Date().toISOString(),
+            email,
           }).subscribe({
             error: (err) => console.error('Failed to submit survey result', err),
           });

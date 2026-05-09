@@ -9,6 +9,7 @@ export interface SurveyStatsPayload {
   milieuName: string;
   answers: Record<string, string>;
   createdAt: string;
+  email: string | null;
 }
 
 export interface SurveyStatsRecord extends SurveyStatsPayload {
