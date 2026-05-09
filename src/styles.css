@@ -14,21 +14,6 @@
   --shadow:0 2px 16px rgba(0,0,0,.08);
   color-scheme: light;
 }
-html[data-theme="dark"]{
-  --c-bg:#0f1419;
-  --c-surface:#1a2028;
-  --c-surface-2:#222a35;
-  --c-border:#2c3540;
-  --c-primary:#7aa9d6;
-  --c-primary-hover:#9bbee0;
-  --c-accent:#ff8a5b;
-  --c-text:#e6e8ec;
-  --c-muted:#9aa3ad;
-  --c-success:#5fbb88;
-  --c-danger:#e57373;
-  --shadow:0 2px 18px rgba(0,0,0,.45);
-  color-scheme: dark;
-}
 html{font-size:16px;scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{
   font-family:'Segoe UI',system-ui,-apple-system,sans-serif;
