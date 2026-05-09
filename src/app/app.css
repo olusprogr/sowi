@@ -4,7 +4,7 @@
 .navbar{
   display:flex;align-items:center;justify-content:space-between;
   padding:.85rem 1.5rem;
-  background:#fff;
+  background:var(--c-surface);
   border-bottom:1px solid var(--c-border);
   position:sticky;top:0;z-index:100;
   box-shadow:0 1px 8px rgba(0,0,0,.06);
@@ -21,10 +21,10 @@
   text-decoration:none;color:var(--c-muted);font-size:.875rem;font-weight:500;
   padding:.45rem .75rem;border-radius:8px;transition:color .15s,background .15s;
 }
-.nav-links a:hover{color:var(--c-primary);background:#f4f7fb}
-.nav-links a.active{color:var(--c-primary);background:#edf3fb;font-weight:600}
-.nav-links .nav-impressum{font-size:.8rem;color:#aaa}
-.nav-links .nav-impressum:hover{color:var(--c-muted);background:#f4f4f4}
+.nav-links a:hover{color:var(--c-primary);background:var(--c-surface-2)}
+.nav-links a.active{color:var(--c-primary);background:var(--c-surface-2);font-weight:600}
+.nav-links .nav-impressum{font-size:.8rem;color:var(--c-muted);opacity:.7}
+.nav-links .nav-impressum:hover{color:var(--c-muted);background:var(--c-surface-2);opacity:1}
 
 /* Logout button (Navbar) – styled like nav links */
 .nav-links .nav-logout{
@@ -33,7 +33,7 @@
   padding:.45rem .75rem;border-radius:8px;
   transition:color .15s,background .15s;
 }
-.nav-links .nav-logout:hover{color:var(--c-primary);background:#f4f7fb}
+.nav-links .nav-logout:hover{color:var(--c-primary);background:var(--c-surface-2)}
 
 .mobile-drawer .nav-logout{
   background:none;border:none;cursor:pointer;font:inherit;text-align:left;
@@ -41,7 +41,7 @@
   padding:.8rem .75rem;border-radius:10px;
   transition:background .15s;
 }
-.mobile-drawer .nav-logout:hover{background:#f4f7fb}
+.mobile-drawer .nav-logout:hover{background:var(--c-surface-2)}
 
 /* Burger */
 .burger{
@@ -53,7 +53,7 @@
 
 /* Mobile drawer */
 .mobile-drawer{
-  background:#fff;border-bottom:1px solid var(--c-border);
+  background:var(--c-surface);border-bottom:1px solid var(--c-border);
   display:flex;flex-direction:column;padding:.5rem 1rem 1rem;
   animation:drawer-in .2s ease;
   box-shadow:0 4px 16px rgba(0,0,0,.08);
@@ -62,7 +62,7 @@
   text-decoration:none;color:var(--c-text);font-size:1rem;font-weight:500;
   padding:.8rem .75rem;border-radius:10px;transition:background .15s;
 }
-.mobile-drawer a:hover{background:#f4f7fb}
+.mobile-drawer a:hover{background:var(--c-surface-2)}
 @keyframes drawer-in{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
 
 .main-content{flex:1;display:flex;flex-direction:column}

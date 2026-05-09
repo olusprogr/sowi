@@ -5,6 +5,17 @@
   max-width:600px;margin:0 auto;
 }
 
+.participation-notice{
+  margin:1rem 1.25rem 0;
+  padding:.85rem 1rem;
+  background:var(--c-surface-2);
+  border:1px solid var(--c-border);
+  border-left:3px solid var(--c-accent);
+  border-radius:10px;
+  font-size:.85rem;color:var(--c-text);line-height:1.45;
+}
+.participation-notice strong{display:block;color:var(--c-primary);margin-bottom:.15rem}
+
 /* Survey top bar (step counter only – no brand, that's in the global navbar) */
 .survey-topbar{
   display:flex;align-items:center;justify-content:flex-end;

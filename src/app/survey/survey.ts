@@ -91,13 +91,24 @@ export class SurveyComponent {
   result = signal<typeof MILIEU_MAP[string] | null>(null);
 
   progress = computed(() => Math.round((Object.keys(this.answers()).length / QUESTIONS.length) * 100));
+  alreadyParticipated = signal(false);
   private platformId = inject(PLATFORM_ID);
   private stats = inject(StatsService);
   private submitted = false;
 
   constructor(private router: Router) {
-    if (isPlatformBrowser(this.platformId) && !sessionStorage.getItem('verified')) {
-      this.router.navigate(['/']);
+    if (isPlatformBrowser(this.platformId)) {
+      const verified = sessionStorage.getItem('verified');
+      if (!verified) {
+        this.router.navigate(['/']);
+        return;
+      }
+      if (verified !== 'anonym') {
+        this.stats.checkEmailExists(verified).subscribe({
+          next: (res) => this.alreadyParticipated.set(res.exists),
+          error: () => {},
+        });
+      }
     }
   }
 
@@ -117,13 +128,15 @@ export class SurveyComponent {
         this.done.set(true);
         if (isPlatformBrowser(this.platformId)) {
           const verified = sessionStorage.getItem('verified');
-          const email = verified && verified !== 'anonym' ? verified : null;
+          const isAnonym = verified === 'anonym' || !verified;
+          const email = isAnonym ? null : verified;
           this.stats.submitSurvey({
             milieuKey: key,
             milieuName: milieu.name,
             answers: this.answers(),
             createdAt: new Date().toISOString(),
             email,
+            isAnonym,
           }).subscribe({
             error: (err) => console.error('Failed to submit survey result', err),
           });

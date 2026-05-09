@@ -5,6 +5,7 @@ import { filter } from 'rxjs/operators';
 import { CookieBannerComponent } from './cookie/cookie-banner';
 import { FooterComponent } from './shared/footer';
 import { AuthService } from './shared/auth.service';
+import { ThemeService } from './shared/theme.service';
 
 @Component({
   selector: 'app-root',
@@ -18,6 +19,7 @@ export class App implements OnInit {
   showNav = signal(false);
   private platformId = inject(PLATFORM_ID);
   auth = inject(AuthService);
+  private theme = inject(ThemeService);
 
   constructor(private router: Router) {}
 

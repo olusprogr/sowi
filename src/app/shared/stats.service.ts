@@ -10,6 +10,7 @@ export interface SurveyStatsPayload {
   answers: Record<string, string>;
   createdAt: string;
   email: string | null;
+  isAnonym: boolean;
 }
 
 export interface SurveyStatsRecord extends SurveyStatsPayload {
@@ -27,5 +28,10 @@ export class StatsService {
 
   listAll(): Observable<SurveyStatsRecord[]> {
     return this.http.get<SurveyStatsRecord[]>(`${this.base}/stats`);
+  }
+
+  checkEmailExists(email: string): Observable<{ exists: boolean }> {
+    const params = new URLSearchParams({ email });
+    return this.http.get<{ exists: boolean }>(`${this.base}/stats/exists?${params.toString()}`);
   }
 }

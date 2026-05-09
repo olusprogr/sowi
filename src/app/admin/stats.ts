@@ -29,17 +29,18 @@ interface SeriesEntry { name: string; series: ChartEntry[]; }
         <div class="chart-card">
           <h2>Verteilung der Milieus</h2>
           @if (isBrowser && milieuData().length > 0) {
-            <ngx-charts-bar-vertical
-              [view]="[700, 360]"
-              [results]="milieuData()"
-              [xAxis]="true"
-              [yAxis]="true"
-              [showXAxisLabel]="false"
-              [showYAxisLabel]="true"
-              yAxisLabel="Anzahl"
-              [yAxisTickFormatting]="intFormat"
-              [scheme]="colorScheme">
-            </ngx-charts-bar-vertical>
+            <div class="chart-wrap">
+              <ngx-charts-bar-vertical
+                [results]="milieuData()"
+                [xAxis]="true"
+                [yAxis]="true"
+                [showXAxisLabel]="false"
+                [showYAxisLabel]="true"
+                yAxisLabel="Anzahl"
+                [yAxisTickFormatting]="intFormat"
+                [scheme]="colorScheme">
+              </ngx-charts-bar-vertical>
+            </div>
           } @else {
             <p class="empty">Keine Daten.</p>
           }
@@ -48,19 +49,20 @@ interface SeriesEntry { name: string; series: ChartEntry[]; }
         <div class="chart-card">
           <h2>Submissions pro Tag</h2>
           @if (isBrowser && timelineData().length > 0 && timelineData()[0].series.length > 0) {
-            <ngx-charts-line-chart
-              [view]="[700, 320]"
-              [results]="timelineData()"
-              [xAxis]="true"
-              [yAxis]="true"
-              [showXAxisLabel]="true"
-              [showYAxisLabel]="true"
-              xAxisLabel="Datum"
-              yAxisLabel="Anzahl"
-              [autoScale]="true"
-              [yAxisTickFormatting]="intFormat"
-              [scheme]="colorScheme">
-            </ngx-charts-line-chart>
+            <div class="chart-wrap">
+              <ngx-charts-line-chart
+                [results]="timelineData()"
+                [xAxis]="true"
+                [yAxis]="true"
+                [showXAxisLabel]="true"
+                [showYAxisLabel]="true"
+                xAxisLabel="Datum"
+                yAxisLabel="Anzahl"
+                [autoScale]="true"
+                [yAxisTickFormatting]="intFormat"
+                [scheme]="colorScheme">
+              </ngx-charts-line-chart>
+            </div>
           } @else {
             <p class="empty">Keine Daten.</p>
           }
@@ -70,15 +72,26 @@ interface SeriesEntry { name: string; series: ChartEntry[]; }
   `,
   styles: [`
     .stats-shell{max-width:920px;margin:2rem auto;padding:0 1rem;display:flex;flex-direction:column;gap:1.25rem}
-    .stats-head{display:flex;justify-content:space-between;align-items:center}
-    h1{margin:0;color:var(--c-primary)}
+    .stats-head{display:flex;justify-content:space-between;align-items:center;gap:.75rem;flex-wrap:wrap}
+    h1{margin:0;color:var(--c-primary);font-size:1.5rem}
     h2{margin:0 0 .75rem;font-size:1rem;color:var(--c-primary)}
     button{padding:.5rem 1rem;background:transparent;color:var(--c-primary);border:1px solid var(--c-primary);border-radius:8px;cursor:pointer;font-weight:600}
-    button:hover{background:var(--c-primary);color:#fff}
+    button:hover{background:var(--c-primary);color:var(--c-surface)}
     .meta{color:var(--c-muted);font-size:.9rem;margin:0}
-    .chart-card{background:#fff;border:1px solid var(--c-border);border-radius:14px;padding:1.25rem;overflow-x:auto}
-    .err{color:#b3261e}
+    .chart-card{background:var(--c-surface);border:1px solid var(--c-border);border-radius:14px;padding:1.25rem}
+    .chart-wrap{width:100%;height:360px;min-width:0}
+    :host ::ng-deep .ngx-charts-outer{width:100% !important}
+    :host ::ng-deep .ngx-charts text{fill:var(--c-text)}
+    :host ::ng-deep .ngx-charts .gridline-path{stroke:var(--c-border)}
+    .err{color:var(--c-danger)}
     .empty{color:var(--c-muted);font-size:.9rem}
+    @media (max-width: 640px){
+      .stats-shell{margin:1rem auto;padding:0 .75rem;gap:1rem}
+      h1{font-size:1.2rem}
+      .chart-card{padding:.85rem}
+      .chart-wrap{height:280px}
+      h2{font-size:.95rem}
+    }
   `]
 })
 export class AdminStatsComponent implements OnInit {

@@ -1,4 +1,11 @@
 <div class="shell">
+  @if (alreadyParticipated() && !done()) {
+    <div class="participation-notice">
+      <strong>Du hast bereits teilgenommen.</strong>
+      Wenn du die Umfrage erneut abschließt, werden deine alten Antworten überschrieben.
+    </div>
+  }
+
   <!-- Step counter bar -->
   <div class="survey-topbar">
     @if (!done()) {
