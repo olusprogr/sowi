@@ -16,6 +16,45 @@
 }
 .participation-notice strong{display:block;color:var(--c-primary);margin-bottom:.15rem}
 
+/* Anti-Cheat Hinweise */
+.anticheat-notice{
+  margin:.75rem 1.25rem 0;
+  padding:.75rem 1rem;
+  border-radius:10px;
+  font-size:.85rem;line-height:1.45;
+  animation:slideIn .25s ease-out;
+}
+.anticheat-notice strong{display:block;margin-bottom:.15rem}
+.anticheat-notice.warn{
+  background:#fdecec;border:1px solid #f5b7b7;border-left:3px solid #c0392b;color:#7a2020;
+}
+.anticheat-notice.warn strong{color:#c0392b}
+.anticheat-notice.info{
+  background:#fff8e1;border:1px solid #f0d97a;border-left:3px solid #c89008;color:#6b4d04;
+}
+@keyframes slideIn{
+  from{opacity:0;transform:translateY(-4px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+/* Blocked-Seite */
+.blocked-page{align-items:center;text-align:center;gap:1.1rem;padding-top:3rem}
+.blocked-badge{
+  width:72px;height:72px;border-radius:50%;
+  background:var(--c-primary);
+  display:grid;place-items:center;
+  box-shadow:0 4px 20px rgba(0,0,0,.15);
+}
+.blocked-title{font-size:1.35rem;font-weight:800;color:var(--c-primary);line-height:1.25}
+.blocked-text{
+  font-size:.95rem;color:#444;line-height:1.6;max-width:420px;
+  background:#fff;border-radius:12px;padding:1rem 1.25rem;box-shadow:var(--shadow);
+}
+
+.result-footnote{
+  font-size:.8rem;color:var(--c-muted);margin-top:.5rem;
+}
+
 /* Survey top bar (step counter only – no brand, that's in the global navbar) */
 .survey-topbar{
   display:flex;align-items:center;justify-content:flex-end;
@@ -84,12 +123,6 @@
 }
 .info-box h3{font-size:.9rem;font-weight:700;color:var(--c-primary);margin-bottom:.5rem}
 .info-box p{font-size:.875rem;color:#444;line-height:1.6}
-.restart-btn{
-  background:var(--c-primary);color:#fff;border:none;
-  border-radius:10px;padding:.85rem 2rem;font-size:1rem;font-weight:600;
-  cursor:pointer;transition:background .2s;margin-top:.5rem;
-}
-.restart-btn:hover{background:#15304d}
 
 @media(min-width:600px){
   .shell{border-left:1px solid var(--c-border);border-right:1px solid var(--c-border)}

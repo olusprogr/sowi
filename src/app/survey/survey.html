@@ -1,76 +1,105 @@
 <div class="shell">
-  @if (alreadyParticipated() && !done()) {
-    <div class="participation-notice">
-      <strong>Du hast bereits teilgenommen.</strong>
-      Wenn du die Umfrage erneut abschließt, werden deine alten Antworten überschrieben.
-    </div>
-  }
-
-  <!-- Step counter bar -->
-  <div class="survey-topbar">
-    @if (!done()) {
-      <span class="step-counter">Frage {{ current() + 1 }} von {{ questions.length }}</span>
+  @if (deviceBlocked()) {
+    <main class="content blocked-page">
+      <div class="blocked-badge">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="4" y="11" width="16" height="9" rx="2"/>
+          <path d="M8 11V8a4 4 0 0 1 8 0v3"/>
+        </svg>
+      </div>
+      <h2 class="blocked-title">Bereits teilgenommen</h2>
+      <p class="blocked-text">
+        Auf diesem Gerät wurde die Umfrage bereits abgeschlossen.
+        Um die Aussagekraft der Ergebnisse zu sichern, ist pro Gerät nur eine Teilnahme möglich.
+      </p>
+    </main>
+  } @else {
+    @if (alreadyParticipated() && !done()) {
+      <div class="participation-notice">
+        <strong>Du hast bereits teilgenommen.</strong>
+        Wenn du die Umfrage erneut abschließt, werden deine alten Antworten überschrieben.
+      </div>
     }
-  </div>
 
-  <!-- Progress bar -->
-  @if (!done()) {
-    <div class="progress-track" role="progressbar" [attr.aria-valuenow]="progress()" aria-valuemin="0" aria-valuemax="100">
-      <div class="progress-fill" [style.width.%]="progress()"></div>
-    </div>
-  }
-
-  <!-- Survey -->
-  @if (!done()) {
-    <main class="content">
-      <p class="q-label">Frage {{ current() + 1 }}</p>
-      <h2 class="q-text">{{ q.text }}</h2>
-      <ul class="options" role="list">
-        @for (opt of q.options; track opt.value) {
-          <li>
-            <button
-              class="option-btn"
-              [class.selected]="isSelected(opt.value)"
-              (click)="select(opt.value)"
-              [attr.aria-pressed]="isSelected(opt.value)"
-            >
-              <span class="opt-check">
-                @if (isSelected(opt.value)) {
-                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><polyline points="2,8 6,12 14,4" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                }
-              </span>
-              {{ opt.label }}
-            </button>
-          </li>
-        }
-      </ul>
-      @if (current() > 0) {
-        <button class="back-btn" (click)="back()">&#8592; Zurück</button>
+    <!-- Step counter bar -->
+    <div class="survey-topbar">
+      @if (!done()) {
+        <span class="step-counter">Frage {{ current() + 1 }} von {{ questions.length }}</span>
       }
-    </main>
-  }
+    </div>
 
-  <!-- Result -->
-  @if (done() && result()) {
-    <main class="content result-page">
-      <div class="result-badge" [style.background]="result()!.farbe">
-        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+    <!-- Progress bar -->
+    @if (!done()) {
+      <div class="progress-track" role="progressbar" [attr.aria-valuenow]="progress()" aria-valuemin="0" aria-valuemax="100">
+        <div class="progress-fill" [style.width.%]="progress()"></div>
       </div>
-      <p class="result-label">Dein Sinus-Milieu</p>
-      <h2 class="result-title" [style.color]="result()!.farbe">{{ result()!.name }}</h2>
-      <div class="result-anteil">
-        <span class="anteil-pill" [style.background]="result()!.farbe + '22'" [style.color]="result()!.farbe">
-          Bevölkerungsanteil: <strong>{{ result()!.anteil }}</strong>
-        </span>
-      </div>
-      <p class="result-desc">{{ result()!.desc }}</p>
+    }
 
-      <div class="info-box">
-        <h3>Was sind Sinus-Milieus?</h3>
-        <p>Das Sinus-Institut teilt die Gesellschaft nach <em>sozialer Lage</em> und <em>Grundorientierung</em> in 10 Milieus ein. Sie helfen, Lebensstile, Werte und Konsummuster besser zu verstehen – wichtig für Soziologie, Marketing und Politik.</p>
+    <!-- Anti-Cheat-Hinweise -->
+    @if (tabLeftWarning() && !done()) {
+      <div class="anticheat-notice warn">
+        <strong>Tab wurde verlassen.</strong>
+        Bitte beantworte diese Frage erneut, damit deine Antwort gewertet wird.
       </div>
+    }
+    @if (tooFastWarning() && !done()) {
+      <div class="anticheat-notice info">
+        Bitte lies die Frage in Ruhe durch, bevor du antwortest.
+      </div>
+    }
 
-      <button class="restart-btn" (click)="restart()">Nochmal starten</button>
-    </main>
+    <!-- Survey -->
+    @if (!done()) {
+      <main class="content">
+        <p class="q-label">Frage {{ current() + 1 }}</p>
+        <h2 class="q-text">{{ q.text }}</h2>
+        <ul class="options" role="list">
+          @for (opt of q.options; track opt.value) {
+            <li>
+              <button
+                class="option-btn"
+                [class.selected]="isSelected(opt.value)"
+                (click)="select(opt.value)"
+                [attr.aria-pressed]="isSelected(opt.value)"
+              >
+                <span class="opt-check">
+                  @if (isSelected(opt.value)) {
+                    <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><polyline points="2,8 6,12 14,4" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  }
+                </span>
+                {{ opt.label }}
+              </button>
+            </li>
+          }
+        </ul>
+        @if (current() > 0) {
+          <button class="back-btn" (click)="back()">&#8592; Zurück</button>
+        }
+      </main>
+    }
+
+    <!-- Result -->
+    @if (done() && result()) {
+      <main class="content result-page">
+        <div class="result-badge" [style.background]="result()!.farbe">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+        </div>
+        <p class="result-label">Dein Sinus-Milieu</p>
+        <h2 class="result-title" [style.color]="result()!.farbe">{{ result()!.name }}</h2>
+        <div class="result-anteil">
+          <span class="anteil-pill" [style.background]="result()!.farbe + '22'" [style.color]="result()!.farbe">
+            Bevölkerungsanteil: <strong>{{ result()!.anteil }}</strong>
+          </span>
+        </div>
+        <p class="result-desc">{{ result()!.desc }}</p>
+
+        <div class="info-box">
+          <h3>Was sind Sinus-Milieus?</h3>
+          <p>Das Sinus-Institut teilt die Gesellschaft nach <em>sozialer Lage</em> und <em>Grundorientierung</em> in 10 Milieus ein. Sie helfen, Lebensstile, Werte und Konsummuster besser zu verstehen – wichtig für Soziologie, Marketing und Politik.</p>
+        </div>
+
+        <p class="result-footnote">Pro Gerät ist nur eine Teilnahme möglich. Danke für deine Antworten!</p>
+      </main>
+    }
   }
 </div>

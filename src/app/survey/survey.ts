@@ -1,4 +1,4 @@
-import { Component, signal, computed, PLATFORM_ID, inject } from '@angular/core';
+import { Component, signal, computed, PLATFORM_ID, DestroyRef, inject } from '@angular/core';
 import { isPlatformBrowser, CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { StatsService } from '../shared/stats.service';
@@ -48,6 +48,21 @@ const MILIEU_FOR_QUESTION: Record<string, string> = {
   q10: 'buergerlich_traditionell',
 };
 
+const SURVEY_COOKIE = 'sinus_survey_done';
+const COOKIE_MAX_AGE = 60 * 60 * 24 * 365;
+const MIN_QUESTION_TIME_MS = 2000;
+
+function setCompletionCookie(): void {
+  if (typeof document === 'undefined') return;
+  const value = encodeURIComponent(new Date().toISOString());
+  document.cookie = `${SURVEY_COOKIE}=${value}; path=/; max-age=${COOKIE_MAX_AGE}; SameSite=Lax`;
+}
+
+function hasCompletionCookie(): boolean {
+  if (typeof document === 'undefined') return false;
+  return document.cookie.split(';').some(c => c.trim().startsWith(`${SURVEY_COOKIE}=`));
+}
+
 function classifyMilieu(answers: Record<string, string>): string {
   const counts: Record<string, number> = {};
   const yesQuestions: string[] = [];
@@ -92,33 +107,85 @@ export class SurveyComponent {
 
   progress = computed(() => Math.round((Object.keys(this.answers()).length / QUESTIONS.length) * 100));
   alreadyParticipated = signal(false);
+  deviceBlocked = signal(false);
+
+  tooFastWarning = signal(false);
+  tabLeftWarning = signal(false);
+
   private platformId = inject(PLATFORM_ID);
+  private destroyRef = inject(DestroyRef);
   private stats = inject(StatsService);
   private submitted = false;
+  private questionStartedAt = 0;
+  private tooFastTimer: ReturnType<typeof setTimeout> | null = null;
 
   constructor(private router: Router) {
-    if (isPlatformBrowser(this.platformId)) {
-      const verified = sessionStorage.getItem('verified');
-      if (!verified) {
-        this.router.navigate(['/']);
-        return;
-      }
-      if (verified !== 'anonym') {
-        this.stats.checkEmailExists(verified).subscribe({
-          next: (res) => this.alreadyParticipated.set(res.exists),
-          error: () => {},
-        });
-      }
+    if (!isPlatformBrowser(this.platformId)) return;
+
+    const verified = sessionStorage.getItem('verified');
+    if (!verified) {
+      this.router.navigate(['/']);
+      return;
     }
+
+    if (hasCompletionCookie()) {
+      this.deviceBlocked.set(true);
+      return;
+    }
+
+    if (verified !== 'anonym') {
+      this.stats.checkEmailExists(verified).subscribe({
+        next: (res) => this.alreadyParticipated.set(res.exists),
+        error: () => {},
+      });
+    }
+
+    this.questionStartedAt = Date.now();
+
+    const onVisibility = () => {
+      if (this.done() || this.deviceBlocked()) return;
+      if (document.hidden) {
+        const qid = this.q?.id;
+        if (qid && this.answers()[qid] !== undefined) {
+          this.answers.update(a => {
+            const next = { ...a };
+            delete next[qid];
+            return next;
+          });
+        }
+        this.tabLeftWarning.set(true);
+      } else {
+        this.questionStartedAt = Date.now();
+      }
+    };
+    document.addEventListener('visibilitychange', onVisibility);
+    this.destroyRef.onDestroy(() => {
+      document.removeEventListener('visibilitychange', onVisibility);
+      if (this.tooFastTimer) clearTimeout(this.tooFastTimer);
+    });
   }
 
   get q() { return this.questions[this.current()]; }
 
   select(value: string) {
+    if (this.deviceBlocked() || this.done()) return;
+
+    const elapsed = Date.now() - this.questionStartedAt;
+    if (elapsed < MIN_QUESTION_TIME_MS) {
+      this.tooFastWarning.set(true);
+      if (this.tooFastTimer) clearTimeout(this.tooFastTimer);
+      this.tooFastTimer = setTimeout(() => this.tooFastWarning.set(false), 1800);
+      return;
+    }
+
+    this.tooFastWarning.set(false);
+    this.tabLeftWarning.set(false);
     this.answers.update(a => ({ ...a, [this.q.id]: value }));
+
     setTimeout(() => {
       if (this.current() < QUESTIONS.length - 1) {
         this.current.update(n => n + 1);
+        this.questionStartedAt = Date.now();
       } else {
         if (this.submitted) return;
         this.submitted = true;
@@ -127,6 +194,7 @@ export class SurveyComponent {
         this.result.set(milieu);
         this.done.set(true);
         if (isPlatformBrowser(this.platformId)) {
+          setCompletionCookie();
           const verified = sessionStorage.getItem('verified');
           const isAnonym = verified === 'anonym' || !verified;
           const email = isAnonym ? null : verified;
@@ -147,13 +215,12 @@ export class SurveyComponent {
 
   isSelected(value: string) { return this.answers()[this.q?.id] === value; }
 
-  back() { if (this.current() > 0) this.current.update(n => n - 1); }
-
-  restart() {
-    this.answers.set({});
-    this.current.set(0);
-    this.done.set(false);
-    this.result.set(null);
-    this.submitted = false;
+  back() {
+    if (this.current() > 0) {
+      this.current.update(n => n - 1);
+      this.questionStartedAt = Date.now();
+      this.tabLeftWarning.set(false);
+      this.tooFastWarning.set(false);
+    }
   }
 }
