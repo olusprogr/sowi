@@ -9,17 +9,40 @@ interface Question {
   options: { label: string; value: string }[];
 }
 
+const YESNO_OPTIONS = [{ label: 'Ja', value: 'ja' }, { label: 'Nein', value: 'nein' }];
+const IMPORTANCE_OPTIONS = [
+  { label: 'wichtig',         value: 'wichtig' },
+  { label: 'eher wichtig',    value: 'eher_wichtig' },
+  { label: 'neutral',         value: 'neutral' },
+  { label: 'eher unwichtig',  value: 'eher_unwichtig' },
+  { label: 'unwichtig',       value: 'unwichtig' },
+];
+const AGREEMENT_OPTIONS = [
+  { label: 'trifft zu',            value: 'trifft_zu' },
+  { label: 'trifft eher zu',       value: 'trifft_eher_zu' },
+  { label: 'neutral',              value: 'neutral' },
+  { label: 'trifft eher nicht zu', value: 'trifft_eher_nicht_zu' },
+  { label: 'trifft nicht zu',      value: 'trifft_nicht_zu' },
+];
+
 const QUESTIONS: Question[] = [
-  { id: 'q1',  text: 'Familie, Heimat und Traditionen sind mir sehr wichtig.',                      options: [{ label: 'Ja', value: 'ja' }, { label: 'Nein', value: 'nein' }] },
-  { id: 'q2',  text: 'Ich passe mich gerne an Erwartungen an, um erfolgreich zu sein.',             options: [{ label: 'Ja', value: 'ja' }, { label: 'Nein', value: 'nein' }] },
-  { id: 'q3',  text: 'Ich habe oft das Gefühl, dass ich es im Leben schwerer habe als andere.',     options: [{ label: 'Ja', value: 'ja' }, { label: 'Nein', value: 'nein' }] },
-  { id: 'q4',  text: 'Marken, Trends und coole Produkte sind mir wichtig.',                         options: [{ label: 'Ja', value: 'ja' }, { label: 'Nein', value: 'nein' }] },
-  { id: 'q5',  text: 'Ich lebe lieber im Hier und Jetzt, als langfristig zu planen.',               options: [{ label: 'Ja', value: 'ja' }, { label: 'Nein', value: 'nein' }] },
-  { id: 'q6',  text: 'Umwelt- und Klimaschutz sind für mich zentrale Themen im Alltag.',            options: [{ label: 'Ja', value: 'ja' }, { label: 'Nein', value: 'nein' }] },
-  { id: 'q7',  text: 'Ich möchte neue Wege gehen und mich von der Masse abheben.',                  options: [{ label: 'Ja', value: 'ja' }, { label: 'Nein', value: 'nein' }] },
-  { id: 'q8',  text: 'Bildung, kritisches Denken und gesellschaftliche Verantwortung sind mir wichtig.', options: [{ label: 'Ja', value: 'ja' }, { label: 'Nein', value: 'nein' }] },
-  { id: 'q9',  text: 'Erfolg, Status und Leistung treiben mich im Leben an.',                       options: [{ label: 'Ja', value: 'ja' }, { label: 'Nein', value: 'nein' }] },
-  { id: 'q10', text: 'Ich schätze ein ruhiges, geregeltes Leben mit klaren Strukturen.',            options: [{ label: 'Ja', value: 'ja' }, { label: 'Nein', value: 'nein' }] },
+  { id: 'q1',  text: 'Familie, Heimat und Traditionen sind mir sehr wichtig.',                      options: YESNO_OPTIONS },
+  { id: 'q2',  text: 'Ich passe mich gerne an Erwartungen an, um erfolgreich zu sein.',             options: YESNO_OPTIONS },
+  { id: 'q3',  text: 'Ich habe oft das Gefühl, dass ich es im Leben schwerer habe als andere.',     options: YESNO_OPTIONS },
+  { id: 'q4',  text: 'Marken, Trends und coole Produkte sind mir wichtig.',                         options: YESNO_OPTIONS },
+  { id: 'q5',  text: 'Ich lebe lieber im Hier und Jetzt, als langfristig zu planen.',               options: YESNO_OPTIONS },
+  { id: 'q6',  text: 'Umwelt- und Klimaschutz sind für mich zentrale Themen im Alltag.',            options: YESNO_OPTIONS },
+  { id: 'q7',  text: 'Ich möchte neue Wege gehen und mich von der Masse abheben.',                  options: YESNO_OPTIONS },
+  { id: 'q8',  text: 'Bildung, kritisches Denken und gesellschaftliche Verantwortung sind mir wichtig.', options: YESNO_OPTIONS },
+  { id: 'q9',  text: 'Erfolg, Status und Leistung treiben mich im Leben an.',                       options: YESNO_OPTIONS },
+  { id: 'q10', text: 'Ich schätze ein ruhiges, geregeltes Leben mit klaren Strukturen.',            options: YESNO_OPTIONS },
+  { id: 'q11', text: 'Ich bin Mitglied in einem Verein und das Vereinsleben ist mir …',             options: IMPORTANCE_OPTIONS },
+  { id: 'q12', text: 'Das Wohl der Gemeinschaft ist mir wichtig.',                                  options: AGREEMENT_OPTIONS },
+  { id: 'q13', text: 'Ich passe mich schnell neuen Trends an.',                                     options: AGREEMENT_OPTIONS },
+  { id: 'q14', text: 'Gute Schulnoten sind mir …',                                                  options: IMPORTANCE_OPTIONS },
+  { id: 'q15', text: 'Ich bin ein kreativer Mensch und grenze mich durch meinen eigenen Stil von der Masse ab.', options: AGREEMENT_OPTIONS },
+  { id: 'q16', text: 'Ich hatte schwierige Startbedingungen, aber mache dennoch das Beste daraus.', options: AGREEMENT_OPTIONS },
+  { id: 'q17', text: 'Ich probiere gerne neue Sachen aus, auch wenn diese gefährlich erscheinen.',  options: AGREEMENT_OPTIONS },
 ];
 
 const MILIEU_MAP: Record<string, { name: string; farbe: string; desc: string; anteil: string }> = {
@@ -46,7 +69,29 @@ const MILIEU_FOR_QUESTION: Record<string, string> = {
   q8: 'liberal',
   q9: 'performer_konservativ',
   q10: 'buergerlich_traditionell',
+  q11: 'traditionell',
+  q12: 'sozial',
+  q13: 'hedonistisch',
+  q14: 'performer_konservativ',
+  q15: 'expeditiv',
+  q16: 'adaptiv',
+  q17: 'experimentalist',
 };
+
+function scoreFor(value: string | undefined): number {
+  switch (value) {
+    case 'ja':
+      return 1;
+    case 'wichtig':
+    case 'trifft_zu':
+      return 2;
+    case 'eher_wichtig':
+    case 'trifft_eher_zu':
+      return 1;
+    default:
+      return 0;
+  }
+}
 
 const SURVEY_COOKIE = 'sinus_survey_done';
 const COOKIE_MAX_AGE = 60 * 60 * 24 * 365;
@@ -65,24 +110,26 @@ function hasCompletionCookie(): boolean {
 
 function classifyMilieu(answers: Record<string, string>): string {
   const counts: Record<string, number> = {};
-  const yesQuestions: string[] = [];
+  let totalScore = 0;
+
   for (const [qid, milieu] of Object.entries(MILIEU_FOR_QUESTION)) {
-    if (answers[qid] === 'ja') {
-      counts[milieu] = (counts[milieu] ?? 0) + 1;
-      yesQuestions.push(qid);
+    const score = scoreFor(answers[qid]);
+    if (score > 0) {
+      counts[milieu] = (counts[milieu] ?? 0) + score;
+      totalScore += score;
     }
   }
 
-  if (yesQuestions.length === 0) return 'buergerlich_traditionell';
+  if (totalScore === 0) return 'buergerlich_traditionell';
 
   const max = Math.max(...Object.values(counts));
   const winners = Object.entries(counts).filter(([, n]) => n === max).map(([m]) => m);
 
   if (winners.length === 1) return winners[0];
 
-  const tiebreakOrder = ['q1', 'q6', 'q7'];
+  const tiebreakOrder = ['q1', 'q6', 'q7', 'q12', 'q15'];
   for (const qid of tiebreakOrder) {
-    if (answers[qid] === 'ja') {
+    if (scoreFor(answers[qid]) > 0) {
       const milieu = MILIEU_FOR_QUESTION[qid];
       if (winners.includes(milieu)) return milieu;
     }
