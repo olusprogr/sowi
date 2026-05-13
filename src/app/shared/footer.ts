@@ -12,7 +12,7 @@ import { RouterLink } from '@angular/router';
           <span class="dot" style="background:#1a3a5c"></span>
           <span class="dot" style="background:#e8632a"></span>
           <span class="dot" style="background:#2d7a4f"></span>
-          <span>Sinus-Milieus Umfrage</span>
+          <span>Jugend-Sinus-Milieus Umfrage</span>
         </div>
         <nav class="footer-links">
           <a routerLink="/">Start</a>

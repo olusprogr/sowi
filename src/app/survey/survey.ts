@@ -9,7 +9,6 @@ interface Question {
   options: { label: string; value: string }[];
 }
 
-const YESNO_OPTIONS = [{ label: 'Ja', value: 'ja' }, { label: 'Nein', value: 'nein' }];
 const IMPORTANCE_OPTIONS = [
   { label: 'wichtig',         value: 'wichtig' },
   { label: 'eher wichtig',    value: 'eher_wichtig' },
@@ -26,56 +25,47 @@ const AGREEMENT_OPTIONS = [
 ];
 
 const QUESTIONS: Question[] = [
-  { id: 'q1',  text: 'Familie, Heimat und Traditionen sind mir sehr wichtig.',                      options: YESNO_OPTIONS },
-  { id: 'q2',  text: 'Ich passe mich gerne an Erwartungen an, um erfolgreich zu sein.',             options: YESNO_OPTIONS },
-  { id: 'q3',  text: 'Ich habe oft das Gefühl, dass ich es im Leben schwerer habe als andere.',     options: YESNO_OPTIONS },
-  { id: 'q4',  text: 'Marken, Trends und coole Produkte sind mir wichtig.',                         options: YESNO_OPTIONS },
-  { id: 'q5',  text: 'Ich lebe lieber im Hier und Jetzt, als langfristig zu planen.',               options: YESNO_OPTIONS },
-  { id: 'q6',  text: 'Umwelt- und Klimaschutz sind für mich zentrale Themen im Alltag.',            options: YESNO_OPTIONS },
-  { id: 'q7',  text: 'Ich möchte neue Wege gehen und mich von der Masse abheben.',                  options: YESNO_OPTIONS },
-  { id: 'q8',  text: 'Bildung, kritisches Denken und gesellschaftliche Verantwortung sind mir wichtig.', options: YESNO_OPTIONS },
-  { id: 'q9',  text: 'Erfolg, Status und Leistung treiben mich im Leben an.',                       options: YESNO_OPTIONS },
-  { id: 'q10', text: 'Ich schätze ein ruhiges, geregeltes Leben mit klaren Strukturen.',            options: YESNO_OPTIONS },
-  { id: 'q11', text: 'Ich bin Mitglied in einem Verein und das Vereinsleben ist mir …',             options: IMPORTANCE_OPTIONS },
+  { id: 'q1',  text: 'Familie, Heimat und Traditionen sind mir sehr wichtig.',                      options: AGREEMENT_OPTIONS },
+  { id: 'q2',  text: 'Ich passe mich gerne an Erwartungen an, um erfolgreich zu sein.',             options: AGREEMENT_OPTIONS },
+  { id: 'q3',  text: 'Ich habe oft das Gefühl, dass ich es im Leben schwerer habe als andere.',     options: AGREEMENT_OPTIONS },
+  { id: 'q4',  text: 'Marken, Trends und coole Produkte sind mir wichtig.',                         options: AGREEMENT_OPTIONS },
+  { id: 'q5',  text: 'Ich lebe lieber im Hier und Jetzt, als langfristig zu planen.',               options: AGREEMENT_OPTIONS },
+  { id: 'q6',  text: 'Umwelt- und Klimaschutz sind für mich zentrale Themen im Alltag.',            options: AGREEMENT_OPTIONS },
+  { id: 'q7',  text: 'Ich möchte neue Wege gehen und mich von der Masse abheben.',                  options: AGREEMENT_OPTIONS },
+  { id: 'q9',  text: 'Erfolg, Status und Leistung treiben mich im Leben an.',                       options: AGREEMENT_OPTIONS },
+  { id: 'q10', text: 'Ich schätze ein ruhiges, geregeltes Leben mit klaren Strukturen.',            options: AGREEMENT_OPTIONS },
   { id: 'q12', text: 'Das Wohl der Gemeinschaft ist mir wichtig.',                                  options: AGREEMENT_OPTIONS },
-  { id: 'q13', text: 'Ich passe mich schnell neuen Trends an.',                                     options: AGREEMENT_OPTIONS },
   { id: 'q14', text: 'Gute Schulnoten sind mir …',                                                  options: IMPORTANCE_OPTIONS },
-  { id: 'q15', text: 'Ich bin ein kreativer Mensch und grenze mich durch meinen eigenen Stil von der Masse ab.', options: AGREEMENT_OPTIONS },
   { id: 'q16', text: 'Ich hatte schwierige Startbedingungen, aber mache dennoch das Beste daraus.', options: AGREEMENT_OPTIONS },
   { id: 'q17', text: 'Ich probiere gerne neue Sachen aus, auch wenn diese gefährlich erscheinen.',  options: AGREEMENT_OPTIONS },
+  { id: 'q18', text: 'Konsum, Mode und teure Erlebnisse sind ein wichtiger Teil meines Lebens.',    options: AGREEMENT_OPTIONS },
 ];
 
 const MILIEU_MAP: Record<string, { name: string; farbe: string; desc: string; anteil: string }> = {
-  traditionell:{ name: 'Traditionelles Milieu', farbe: '#7a7060', desc: 'Die ältere Generation mit kleinbürgerlichen Werten. Pflichtbewusstsein, Sparsamkeit, Bodenständigkeit.', anteil: '13 %' },
-  adaptiv:     { name: 'Adaptiv-Pragmatisches Milieu', farbe: '#c0873d', desc: 'Junge flexible Mitte. Pragmatisch, anpassungsfähig, balancieren zwischen Leistung und Lebensqualität.', anteil: '12 %' },
-  prekär:      { name: 'Prekäres Milieu', farbe: '#8b5e5e', desc: 'Gesellschaftlich Abgehängte. Suche nach Sicherheit, Ausgrenzungserfahrungen, soziale Benachteiligung.', anteil: '9 %' },
-  hedonistisch:{ name: 'Konsum-Hedonistisches Milieu', farbe: '#c04a7a', desc: 'Spaß- und erlebnisorientierte Unterschicht und untere Mittelschicht. Leben im Moment, Ablehnung von Normen.', anteil: '15 %' },
-  experimentalist:{ name: 'Experimentalistisches Milieu', farbe: '#d97706', desc: 'Unkonventionelle Kreative. Leben spontan im Hier und Jetzt, lieben Vielfalt und Selbstinszenierung.', anteil: '8 %' },
-  sozial:      { name: 'Sozial-Ökologisches Milieu', farbe: '#3a8fbf', desc: 'Gesellschaftskritisch und nachhaltigkeitsorientiert. Starkes Gemeinschaftsgefühl und ökologisches Gewissen.', anteil: '7 %' },
-  expeditiv:   { name: 'Expeditives Milieu', farbe: '#7b3fa0', desc: 'Kreative Avantgarde. Digitale Natives, die Unabhängigkeit, Selbstbestimmung und Ästhetik leben.', anteil: '9 %' },
-  liberal:     { name: 'Liberal-Intellektuelles Milieu', farbe: '#2d7a4f', desc: 'Aufgeklärte Bildungselite mit postmateriellen Wurzeln. Politisch-kulturell engagiert, offen für Vielfalt.', anteil: '7 %' },
-  performer_konservativ: { name: 'Performer / Konservativ-Etablierte', farbe: '#1a3a5c', desc: 'Leistungs- und statusorientierte Elite. Hohe Ansprüche, Erfolgsstreben, kulturelles Selbstbewusstsein.', anteil: '18 %' },
-  buergerlich_traditionell: { name: 'Bürgerliche Mitte / Traditionelles Milieu', farbe: '#5a8fa0', desc: 'Sicherheitsorientiert und harmonieliebend. Klare Strukturen, geregeltes Leben, konventionelle Werte.', anteil: '26 %' },
+  konservativ_buergerlich: { name: 'Konservativ-Bürgerliche', farbe: '#5a8fa0', desc: 'Wertkonservativ, familien- und sicherheitsorientiert. Klare Strukturen, Pflichtbewusstsein und ein geregeltes Leben sind wichtig.', anteil: '10 %' },
+  adaptiv_pragmatisch:     { name: 'Adaptiv-Pragmatische', farbe: '#c0873d', desc: 'Leistungs- und erfolgsorientierter, flexibler Mainstream. Pragmatisch, anpassungsfähig und mit dem Wunsch nach einem gelingenden Leben.', anteil: '25 %' },
+  prekär:                  { name: 'Prekäre', farbe: '#8b5e5e', desc: 'Um Orientierung und Teilhabe bemüht. Oft mit Ausgrenzungserfahrungen und sozialer Benachteiligung konfrontiert, dennoch zukunftsbezogen.', anteil: '9 %' },
+  materialistisch_hedonistisch: { name: 'Materialistische Hedonisten', farbe: '#c04a7a', desc: 'Freizeit-, marken- und erlebnisorientiert. Konsum und Spaß stehen im Vordergrund, oft mit Distanz zu Bildungseliten.', anteil: '13 %' },
+  experimentalistisch_hedonistisch: { name: 'Experimentalistische Hedonisten', farbe: '#d97706', desc: 'Spaß- und erlebnisorientiert, unkonventionell. Lieben Vielfalt, neue Reize und leben spontan im Hier und Jetzt.', anteil: '14 %' },
+  sozialoekologisch:       { name: 'Sozialökologische', farbe: '#3a8fbf', desc: 'Nachhaltigkeits-, werte- und gerechtigkeitsorientiert. Reflektiert, weltoffen und mit starkem gesellschaftlichem Bewusstsein.', anteil: '15 %' },
+  expeditiv:               { name: 'Expeditive', farbe: '#7b3fa0', desc: 'Erfolgs-, leistungs- und individualistisch orientiert. Weltoffen, kreativ, digital affin und stets auf der Suche nach neuen Wegen.', anteil: '14 %' },
 };
 
 const MILIEU_FOR_QUESTION: Record<string, string> = {
-  q1: 'traditionell',
-  q2: 'adaptiv',
+  q1: 'konservativ_buergerlich',
+  q10: 'konservativ_buergerlich',
+  q2: 'adaptiv_pragmatisch',
+  q14: 'adaptiv_pragmatisch',
   q3: 'prekär',
-  q4: 'hedonistisch',
-  q5: 'experimentalist',
-  q6: 'sozial',
+  q16: 'prekär',
+  q4: 'materialistisch_hedonistisch',
+  q18: 'materialistisch_hedonistisch',
+  q5: 'experimentalistisch_hedonistisch',
+  q17: 'experimentalistisch_hedonistisch',
+  q6: 'sozialoekologisch',
+  q12: 'sozialoekologisch',
   q7: 'expeditiv',
-  q8: 'liberal',
-  q9: 'performer_konservativ',
-  q10: 'buergerlich_traditionell',
-  q11: 'traditionell',
-  q12: 'sozial',
-  q13: 'hedonistisch',
-  q14: 'performer_konservativ',
-  q15: 'expeditiv',
-  q16: 'adaptiv',
-  q17: 'experimentalist',
+  q9: 'expeditiv',
 };
 
 function scoreFor(value: string | undefined): number {
@@ -120,14 +110,14 @@ function classifyMilieu(answers: Record<string, string>): string {
     }
   }
 
-  if (totalScore === 0) return 'buergerlich_traditionell';
+  if (totalScore === 0) return 'adaptiv_pragmatisch';
 
   const max = Math.max(...Object.values(counts));
   const winners = Object.entries(counts).filter(([, n]) => n === max).map(([m]) => m);
 
   if (winners.length === 1) return winners[0];
 
-  const tiebreakOrder = ['q1', 'q6', 'q7', 'q12', 'q15'];
+  const tiebreakOrder = ['q1', 'q6', 'q7', 'q12'];
   for (const qid of tiebreakOrder) {
     if (scoreFor(answers[qid]) > 0) {
       const milieu = MILIEU_FOR_QUESTION[qid];
