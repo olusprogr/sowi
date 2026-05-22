@@ -9,6 +9,16 @@ import { AuthService } from '../shared/auth.service';
 interface ChartEntry { name: string; value: number; }
 interface SeriesEntry { name: string; series: ChartEntry[]; }
 
+const MILIEU_DISPLAY_NAMES: Record<string, string> = {
+  konservativ_buergerlich:        'Konservativ-Bürgerliche',
+  adaptiv_pragmatisch:            'Adaptiv-Pragmatische',
+  'prekär':                       'Prekäre',
+  materialistisch_hedonistisch:   'Materialistische Hedonisten',
+  experimentalistisch_hedonistisch: 'Experimentalistische Hedonisten',
+  sozialoekologisch:              'Sozialökologische',
+  expeditiv:                      'Expeditive',
+};
+
 @Component({
   selector: 'app-admin-stats',
   standalone: true,
@@ -114,10 +124,13 @@ export class AdminStatsComponent implements OnInit {
   milieuData = computed<ChartEntry[]>(() => {
     const counts: Record<string, number> = {};
     for (const r of this.records()) {
-      const name = r.milieuName || r.milieuKey || 'Unbekannt';
-      counts[name] = (counts[name] ?? 0) + 1;
+      const key = r.milieuKey || r.milieuName || 'unbekannt';
+      counts[key] = (counts[key] ?? 0) + 1;
     }
-    return Object.entries(counts).map(([name, value]) => ({ name, value }));
+    return Object.entries(counts).map(([key, value]) => ({
+      name: MILIEU_DISPLAY_NAMES[key] || key,
+      value,
+    }));
   });
 
   timelineData = computed<SeriesEntry[]>(() => {
