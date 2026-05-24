@@ -70,14 +70,20 @@ const MILIEU_FOR_QUESTION: Record<string, string> = {
 
 function scoreFor(value: string | undefined): number {
   switch (value) {
-    case 'ja':
-      return 1;
     case 'wichtig':
     case 'trifft_zu':
       return 2;
     case 'eher_wichtig':
     case 'trifft_eher_zu':
       return 1;
+    case 'neutral':
+      return 0;
+    case 'eher_unwichtig':
+    case 'trifft_eher_nicht_zu':
+      return -1;
+    case 'unwichtig':
+    case 'trifft_nicht_zu':
+      return -2;
     default:
       return 0;
   }
@@ -100,31 +106,34 @@ function hasCompletionCookie(): boolean {
 
 function classifyMilieu(answers: Record<string, string>): string {
   const counts: Record<string, number> = {};
-  let totalScore = 0;
+  const absSums: Record<string, number> = {};
+  let answeredCount = 0;
+
+  for (const milieu of new Set(Object.values(MILIEU_FOR_QUESTION))) {
+    counts[milieu] = 0;
+    absSums[milieu] = 0;
+  }
 
   for (const [qid, milieu] of Object.entries(MILIEU_FOR_QUESTION)) {
-    const score = scoreFor(answers[qid]);
-    if (score > 0) {
-      counts[milieu] = (counts[milieu] ?? 0) + score;
-      totalScore += score;
-    }
+    if (answers[qid] === undefined) continue;
+    const s = scoreFor(answers[qid]);
+    counts[milieu] += s;
+    absSums[milieu] += Math.abs(s);
+    answeredCount++;
   }
 
-  if (totalScore === 0) return 'adaptiv_pragmatisch';
+  if (answeredCount === 0) return 'adaptiv_pragmatisch';
 
   const max = Math.max(...Object.values(counts));
-  const winners = Object.entries(counts).filter(([, n]) => n === max).map(([m]) => m);
+  if (max <= 0) return 'adaptiv_pragmatisch';
 
+  const winners = Object.entries(counts).filter(([, n]) => n === max).map(([m]) => m);
   if (winners.length === 1) return winners[0];
 
-  const tiebreakOrder = ['q1', 'q6', 'q7', 'q12'];
-  for (const qid of tiebreakOrder) {
-    if (scoreFor(answers[qid]) > 0) {
-      const milieu = MILIEU_FOR_QUESTION[qid];
-      if (winners.includes(milieu)) return milieu;
-    }
-  }
-
+  winners.sort((a, b) => {
+    if (absSums[b] !== absSums[a]) return absSums[b] - absSums[a];
+    return a.localeCompare(b);
+  });
   return winners[0];
 }
 

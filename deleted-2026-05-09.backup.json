@@ -1,0 +1,34 @@
+[
+  {
+    "_id": "69ff68be18e3652686f7f4c3",
+    "milieuKey": "neo_oekologisch",
+    "milieuName": "Neo-Ökologische",
+    "answers": {
+      "q1": "nein",
+      "q2": "ja",
+      "q3": "ja",
+      "q4": "ja",
+      "q5": "ja",
+      "q6": "ja",
+      "q8": "ja",
+      "q9": "ja"
+    },
+    "createdAt": "2026-05-09T17:02:54.405Z"
+  },
+  {
+    "_id": "69ff69ff48cef50427ed8117",
+    "milieuKey": "traditionell_buergerlich",
+    "milieuName": "Traditionell-Bürgerliche",
+    "answers": {
+      "q1": "ja",
+      "q2": "ja",
+      "q4": "ja",
+      "q5": "ja",
+      "q6": "ja",
+      "q8": "ja",
+      "q10": "ja"
+    },
+    "createdAt": "2026-05-09T17:08:15.821Z",
+    "email": "chodurao@stein.ms.de"
+  }
+]
