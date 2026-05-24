@@ -143,7 +143,6 @@ export class SurveyComponent {
   result = signal<typeof MILIEU_MAP[string] | null>(null);
 
   progress = computed(() => Math.round((Object.keys(this.answers()).length / QUESTIONS.length) * 100));
-  alreadyParticipated = signal(false);
   deviceBlocked = signal(false);
 
   tooFastWarning = signal(false);
@@ -168,13 +167,6 @@ export class SurveyComponent {
     if (hasCompletionCookie()) {
       this.deviceBlocked.set(true);
       return;
-    }
-
-    if (verified !== 'anonym') {
-      this.stats.checkEmailExists(verified).subscribe({
-        next: (res) => this.alreadyParticipated.set(res.exists),
-        error: () => {},
-      });
     }
 
     this.questionStartedAt = Date.now();
@@ -232,16 +224,13 @@ export class SurveyComponent {
         this.done.set(true);
         if (isPlatformBrowser(this.platformId)) {
           setCompletionCookie();
-          const verified = sessionStorage.getItem('verified');
-          const isAnonym = verified === 'anonym' || !verified;
-          const email = isAnonym ? null : verified;
           this.stats.submitSurvey({
             milieuKey: key,
             milieuName: milieu.name,
             answers: this.answers(),
             createdAt: new Date().toISOString(),
-            email,
-            isAnonym,
+            email: null,
+            isAnonym: true,
           }).subscribe({
             error: (err) => console.error('Failed to submit survey result', err),
           });
