@@ -111,10 +111,27 @@ export class AdminStatsComponent implements OnInit {
 
   intFormat = (val: number) => Number.isInteger(val) ? val.toString() : '';
 
+  private readonly KEY_TO_LABEL: Record<string, string> = {
+    traditionell_buergerlich: 'Traditionell-Bürgerliche',
+    adaptiv_pragmatisch:      'Adaptiv-Pragmatische',
+    neo_oekologisch:          'Neo-Ökologische',
+    expeditiv:                'Expeditive',
+    konsum_materialistisch:   'Konsum-Materialisten',
+    experimentalisten:        'Experimentalisten',
+    prekaer:                  'Prekäre',
+  };
+
+  private prettyLabel(r: SurveyStatsRecord): string {
+    if (r.milieuKey && this.KEY_TO_LABEL[r.milieuKey]) return this.KEY_TO_LABEL[r.milieuKey];
+    if (r.milieuName) return r.milieuName;
+    if (r.milieuKey) return r.milieuKey;
+    return 'Unbekannt';
+  }
+
   milieuData = computed<ChartEntry[]>(() => {
     const counts: Record<string, number> = {};
     for (const r of this.records()) {
-      const name = r.milieuName || r.milieuKey || 'Unbekannt';
+      const name = this.prettyLabel(r);
       counts[name] = (counts[name] ?? 0) + 1;
     }
     return Object.entries(counts).map(([name, value]) => ({ name, value }));

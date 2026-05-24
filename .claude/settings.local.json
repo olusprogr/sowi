@@ -18,7 +18,13 @@
       "Bash(curl -sSL https://olusprogr.github.io/sowi/impressum/)",
       "WebSearch",
       "WebFetch(domain:www.freiherr-vom-stein-gymnasium-muenster.de)",
-      "Bash(git worktree *)"
+      "Bash(git worktree *)",
+      "Bash(curl -s -X POST https://sowi-backend-production.up.railway.app/admin/register -H 'Content-Type: application/json' -d '{\"code\":\"3ab56db4190d687036a9a5dcf365164f\",\"username\":\"claude_admin\",\"password\":\"TempPw_8x!kQ2vR9mZ\"}')",
+      "Bash(curl -s -X POST https://sowi-backend-production.up.railway.app/admin/login -H 'Content-Type: application/json' -d '{\"username\":\"claude_admin\",\"password\":\"TempPw_8x!kQ2vR9mZ\"}')",
+      "Bash(python -c \"import json,sys; data=json.load\\(sys.stdin\\); keys=set\\(\\); [keys.update\\(d.keys\\(\\)\\) for d in data]; print\\('Top-level keys:', sorted\\(keys\\)\\)\")",
+      "Bash(npm install *)",
+      "Bash(node migrate-milieus.js)",
+      "Bash(node migrate-milieus.js --apply)"
     ]
   }
 }
